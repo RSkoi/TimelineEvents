@@ -1,6 +1,8 @@
 # TimelineEvents
 Plugin that extends the Timeline plugin with scriptable events, similar to events from Unity3D animations. The events can be fed scripts that will be executed when the Timeline cursor passes them. In other words, the player can interact with the Unity engine through timeline (and RuntimeUnityEditor). This can be useful for cases Timeline does not provide support for, e.g. specific settings of a Unity Particle System.
 
+As the plugin feeds each script to the RuntimeUnityEditor as code which is then executed, notice that certain limitations apply. When writing a script, always first debug it with the REPL console from the RuntimeUnityEditor.
+
 ## Dependencies
 - latest BepInEx
 - latest KKAPI
@@ -17,3 +19,6 @@ Plugin that extends the Timeline plugin with scriptable events, similar to event
 
 ## Installation
 Extract the RSkoi\_TimelineEvents\_<version>.zip archive into your main Koikatsu folder.
+
+## Release v1.0.0
+https://github.com/RSkoi/TimelineEvents/releases
