@@ -19,6 +19,3 @@ As the plugin feeds each script to the RuntimeUnityEditor as code which is then 
 
 ## Installation
 Extract the RSkoi\_TimelineEvents\_<version>.zip archive into your main Koikatsu folder.
-
-## Release v1.0.0
-https://github.com/RSkoi/TimelineEvents/releases
