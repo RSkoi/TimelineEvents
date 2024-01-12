@@ -18,4 +18,4 @@ As the plugin feeds each script to the RuntimeUnityEditor as code which is then 
 - Disabling the "Events" interpolable with the checkbox next to the name does not actually disable the events. If you want to disable the interpolable, use the "Disable" and "Enable" options from the right-click menu of the interpolable.
 
 ## Installation
-Extract the RSkoi\_TimelineEvents\_<version>.zip archive into your main Koikatsu folder.
+Extract the contents of the RSkoi\_TimelineEvents\_<version>.zip archive into your main Koikatsu folder so that the RSkoi_TimelineEvents.dll file goes into the BepInEx/plugins folder.
