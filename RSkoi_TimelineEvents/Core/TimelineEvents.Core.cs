@@ -67,14 +67,15 @@ namespace RSkoi_TimelineEvents
 
         public TimelineEventType EventDeserializeValueXML(string parameter, XmlNode node)
         {
-            if (_stringifiedEvents.Equals(""))
+            if (_stringifiedEvents.IsNullOrEmpty())
             {
                 foreach (XmlNode script in node.SelectNodes("//EventValue"))
-                    _stringifiedEvents += $"\n\n<SCRIPT BEGIN>\n{script.InnerText}\n<SCRIPT END>";
+                    _stringifiedEvents += (_stringifiedEvents.IsNullOrEmpty() ? "" : "\n\n")
+                        + $"<SCRIPT BEGIN>\n{script.InnerText}\n<SCRIPT END>";
 
                 _warningText.text = _stringifiedEvents;
                 _canPlay = false;
-                
+
                 StartWarning();
             }
 
@@ -121,7 +122,7 @@ namespace RSkoi_TimelineEvents
 
         private static void WriteValue(XmlTextWriter self, string label, TimelineEventType value)
         {
-            System.Xml.Serialization.XmlSerializer x = new (value.GetType());
+            System.Xml.Serialization.XmlSerializer x = new(value.GetType());
             x.Serialize(self, value);
         }
 

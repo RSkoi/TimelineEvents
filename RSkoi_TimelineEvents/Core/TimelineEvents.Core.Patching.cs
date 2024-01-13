@@ -1,5 +1,6 @@
 ﻿using RSkoi_TimelineEvents.Core;
 using RSkoi_TimelineEvents.UI;
+using RSkoi_TimelineEvents.SceneBehaviour;
 
 using System;
 using System.Linq;
@@ -11,6 +12,7 @@ using Timeline;
 using UILib;
 using RuntimeUnityEditor.Core.Utils;
 using UnityEngine.UI;
+using Studio;
 
 namespace RSkoi_TimelineEvents
 {
@@ -196,5 +198,19 @@ namespace RSkoi_TimelineEvents
             "SelectedKeyframes" => TimelineReflection.GetPrivateTimelineSelectedFrames(),
             _ => throw new ArgumentOutOfRangeException("method", $"Unexpected method name: {method}"),
         };
+
+        [HarmonyPatch(typeof(SceneInfo), "Save", [typeof(string)])]
+        [HarmonyPostfix]
+        private static void SavePostfix(string _path)
+        {
+            SaveCache(TimelineEventsSceneBehaviour.GetCurrentSceneHash(_path));
+        }
+
+        [HarmonyPatch(typeof(SceneInfo), "Load", [typeof(string)])]
+        [HarmonyPostfix]
+        private static void LoadPostfix(string _path)
+        {
+            TimelineEventsSceneBehaviour.lastScenePath = _path;
+        }
     }
 }

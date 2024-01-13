@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using RSkoi_TimelineEvents.SceneBehaviour;
+
 using System.IO;
+using System.Collections;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,8 +20,6 @@ namespace RSkoi_TimelineEvents
         private static Button _warningDeleteScriptsButton;
         private static Toggle _warningToggle;
         private static Scrollbar _warningScrollbar;
-
-        private static bool _warningEnabled = true;
 
         private static float _warningScrollDifference = .05f;
         private static float _warningSecToWait = 5f;
@@ -77,6 +77,14 @@ namespace RSkoi_TimelineEvents
             _warningScrollbar.value = 1f;
             _warningToggle.isOn = false;
 
+            bool sceneIsCached = _cache.Contains(TimelineEventsSceneBehaviour.GetCurrentSceneHash());
+            if (!ForceWarning.Value && sceneIsCached
+                && !TimelineEventsSceneBehaviour.lastScenePath.IsNullOrEmpty())
+            {
+                _canPlay = true;
+                return;
+            }
+
             _warningContainer.SetActive(true);
             StartCoroutine(WaitForSeconds(_warningSecToWait));
         }
@@ -104,6 +112,7 @@ namespace RSkoi_TimelineEvents
         {
             WarningContinue();
             _warningContainer.SetActive(false);
+            SaveCache(TimelineEventsSceneBehaviour.GetCurrentSceneHash());
         }
 
         private static T GetTimelineEventsComponent<T>(string transformPath)
