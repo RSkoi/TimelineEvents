@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using RuntimeUnityEditor.Core.REPL;
 using Studio;
 using UnityEngine;
+using Timeline;
 
 namespace RSkoi_TimelineEvents
 {
@@ -17,6 +18,8 @@ namespace RSkoi_TimelineEvents
         public static Dictionary<string, TimelineEventType> hashedEvents = [];
         public static int loadingCounter = 0;
 
+        private static bool _canPlay = true;
+        private static string _stringifiedEvents = "";
         private static HashAlgorithm _hashAlgorithm = SHA256.Create();
         private static float _lastTime = -1f;
 
@@ -64,6 +67,17 @@ namespace RSkoi_TimelineEvents
 
         public TimelineEventType EventDeserializeValueXML(string parameter, XmlNode node)
         {
+            if (_stringifiedEvents.Equals(""))
+            {
+                foreach (XmlNode script in node.SelectNodes("//EventValue"))
+                    _stringifiedEvents += $"\n\n<SCRIPT BEGIN>\n{script.InnerText}\n<SCRIPT END>";
+
+                _warningText.text = _stringifiedEvents;
+                _canPlay = false;
+                
+                StartWarning();
+            }
+
             XmlNode curEventTypeNode = node.SelectNodes("//TimelineEventType")[loadingCounter++];
             TimelineEventType newE = new()
             {
@@ -109,6 +123,24 @@ namespace RSkoi_TimelineEvents
         {
             System.Xml.Serialization.XmlSerializer x = new (value.GetType());
             x.Serialize(self, value);
+        }
+
+        private static void WarningClearAllScripts()
+        {
+            hashedEvents.Clear();
+            foreach (Interpolable i in TimelineReflection.GetPrivateTimelineInterpolables().Values)
+                if (i.id == INTERPOLABLE_ID)
+                {
+                    i.keyframes.Clear();
+                    break;
+                }
+
+            _canPlay = true;
+        }
+
+        private static void WarningContinue()
+        {
+            _canPlay = true;
         }
     }
 }

@@ -4,13 +4,23 @@
     <TargetFramework>3.5</TargetFramework>
     <AssemblyName>RSkoi_TimelineEvents</AssemblyName>
     <Description>Plugin for Timeline that adds events.</Description>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="Resources\timelineevents.unity3d" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\timelineevents.unity3d">
+      <CustomToolNamespace>RSkoi_TimelineEvents.Resources.timelineevents</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
   
   <ItemGroup>
@@ -41,5 +51,21 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>..\..\..\..\[ScrewThisNoise] Koikatsu BetterRepack RX18\CharaStudio_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Resources\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>RSkoi_TimelineEvents.Resources</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

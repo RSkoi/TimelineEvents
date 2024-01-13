@@ -39,7 +39,7 @@ namespace RSkoi_TimelineEvents
         [HarmonyPostfix]
         private static void UpdateCursor2Postfix()
         {
-            if (_isPlaying)
+            if (_canPlay && _isPlaying)
                 foreach (KeyValuePair<string, TimelineEventType> entry in hashedEvents)
                     if (_interpolableEnabled && !entry.Value.Executed && entry.Value.Time < TimelineCompatibility.GetPlaybackTime())
                         _instance.Execute(entry.Value);

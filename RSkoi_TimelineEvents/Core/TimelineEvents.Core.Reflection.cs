@@ -28,6 +28,11 @@ namespace RSkoi_TimelineEvents.Core
             return (List<Interpolable>)TimelineEvents._timeline.GetPrivate("_selectedInterpolables");
         }
 
+        public static Dictionary<int, Interpolable> GetPrivateTimelineInterpolables()
+        {
+            return (Dictionary<int, Interpolable>)TimelineEvents._timeline.GetPrivate("_interpolables");
+        }
+
         public static object CallPrivateTypes(this object self, string name, Type[] types, params object[] p)
         {
             return self.GetType().GetMethod(

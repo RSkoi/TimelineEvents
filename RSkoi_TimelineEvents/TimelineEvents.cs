@@ -16,7 +16,7 @@ namespace RSkoi_TimelineEvents
     {
         internal const string PLUGIN_GUID = "RSkoi_TimelineEvents";
         internal const string PLUGIN_NAME = "RSkoi_TimelineEvents";
-        internal const string PLUGIN_VERSION = "1.0.0";
+        internal const string PLUGIN_VERSION = "1.0.1";
 
         internal const string INTERPOLABLE_OWNER = "TimelineEvents";
         internal const string INTERPOLABLE_ID = "TimelineEventsInterpolables";
@@ -37,6 +37,8 @@ namespace RSkoi_TimelineEvents
             _timeline = Singleton<Timeline.Timeline>.Instance;
 
             logger = Logger;
+
+            LoadWarningResource();
         }
 
         private void OnEnable()
@@ -46,10 +48,17 @@ namespace RSkoi_TimelineEvents
             Harmony.CreateAndPatchAll(typeof(TimelineEvents));
         }
 
+        private void Update()
+        {
+            if (_warningInit)
+                WarningUpdate();
+        }
+
         private void LoadedEvent(Scene scene, LoadSceneMode loadMode)
         {
             loadingCounter = 0;
             hashedEvents.Clear();
+            _stringifiedEvents = "";
 
             if (scene.buildIndex != 1)
                 return;
@@ -61,6 +70,8 @@ namespace RSkoi_TimelineEvents
             }
 
             UI.TimelineEventsUI.Init();
+            InstantiateWarning();
+            InitWarning();
         }
     }
 }
