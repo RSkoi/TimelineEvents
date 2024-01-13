@@ -7,6 +7,11 @@ As the plugin feeds each script to the RuntimeUnityEditor as code which is then 
 TimelineEvents allows for arbitrary code execution after a scene is loaded (and Timeline is playing) inside the Koikatsu studio. Arbitrary code execution can be used by bad faith actors to gain access to the player's PC and private data. When loading a scene, an overlay will pop up, blocking execution of the scripts within the scene by default and prompting the player to review the scripts, or discard them.
 Do **NOT** run scripts from scenes if you do not know the creator or trust the source. The maker of this plugin holds no responsibility for damages that result from its use.
 
+## Config
+- **Force script warning on all scenes:** Force the script warning on all scenes, regardless if the warning has been dismissed before. When unchecked/false, the script warning will only pop up once on each scene. (Default: true)
+- **Carry over cache:** Whether TimelineEvents should carry over the cache across studio sessions. When unchecked/false, the script warnings will pop up independently of previous sessions. (Default: false)
+- **Dump scripts to file:** Dump all scripts within the current scene to a text file. (Default: CTRL+D)
+
 ## Dependencies
 - latest BepInEx
 - latest KKAPI
