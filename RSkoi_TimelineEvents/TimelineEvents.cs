@@ -140,7 +140,7 @@ namespace RSkoi_TimelineEvents
                 "Carry over cache",
                 false,
                 "Whether TimelineEvents should carry over the cache across studio sessions. " +
-                "When uncheked/false, the script warnings will pop up independently of previous sessions.");
+                "When unchecked/false, the script warnings will pop up independently of previous sessions.");
         }
 
         public static void LoadCache()
