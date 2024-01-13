@@ -1,9 +1,15 @@
-﻿using BepInEx;
+﻿using System;
+using System.IO;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using KKAPI.Utilities;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+
+using RSkoi_TimelineEvents.Core;
 
 namespace RSkoi_TimelineEvents
 {
@@ -23,7 +29,7 @@ namespace RSkoi_TimelineEvents
         internal const string INTERPOLABLE_NAME = "Events";
 
         internal const string EVENT_FILE_FILTERS = "TXT (*.txt)|*.txt|CS (*.cs)|*.cs|XML (*.xml)|*.xml|All files (*.*)|*.*";
-        internal const string CUSTOM_DIRECTORY_NAME = "TimelineEvents";
+        internal const string CUSTOM_DIRECTORY_NAME = "Timeline\\TimelineEvents";
 
         public static ManualLogSource logger;
 
@@ -32,7 +38,7 @@ namespace RSkoi_TimelineEvents
         internal static bool _isPlaying = false;
         internal static bool _interpolableEnabled = true;
 
-        //internal static ConfigEntry<KeyboardShortcut> DumpScriptsShortcut { get; private set; }
+        internal static ConfigEntry<KeyboardShortcut> DumpScriptsShortcut { get; private set; }
 
         private void Awake()
         {
@@ -42,13 +48,13 @@ namespace RSkoi_TimelineEvents
             logger = Logger;
 
             LoadWarningResource();
-            /*DumpScriptsShortcut = Config.Bind(
+            DumpScriptsShortcut = Config.Bind(
                 "Keyboard Shortcuts",
                 "Dump scripts to file",
                 new KeyboardShortcut(KeyCode.D, KeyCode.LeftControl),
                 new ConfigDescription("Dump all scripts within the current scene to a text file.",
                 null,
-                new ConfigurationManagerAttributes { Order = 1 }));*/
+                new ConfigurationManagerAttributes { Order = 1 }));
         }
 
         private void OnEnable()
@@ -63,7 +69,7 @@ namespace RSkoi_TimelineEvents
             if (_warningInit)
                 WarningUpdate();
 
-            /*if (DumpScriptsShortcut.Value.IsDown() && hashedEvents.Count > 0)
+            if (DumpScriptsShortcut.Value.IsDown() && hashedEvents.Count > 0)
             {
                 string path = $"{Paths.PluginPath}\\{CUSTOM_DIRECTORY_NAME}\\";
                 Directory.CreateDirectory(path);
@@ -74,12 +80,15 @@ namespace RSkoi_TimelineEvents
                         $"\nScript:\n{e.EventValue}\n\n";
 
                 string filePath = path + $"KeyframeDump_{DateTime.Now:yyyy_MM_dd_HH-mm-ss-ff}.txt";
-                logger.LogInfo(filePath);
-                File.AppendAllText(path, stringifiedHashedEvents);
-                Process.Start(path);
 
-                logger.LogMessage($"Dumped keyframes to {path}");
-            }*/
+                using FileStream fs = File.Create(filePath);
+                using StreamWriter sr = new(fs);
+                sr.WriteLine(stringifiedHashedEvents);
+
+                System.Diagnostics.Process.Start(path);
+
+                logger.LogMessage($"Dumped keyframes to {filePath}");
+            }
         }
 
         private void LoadedEvent(Scene scene, LoadSceneMode loadMode)
