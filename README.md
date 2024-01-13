@@ -15,11 +15,11 @@ Do **NOT** run scripts from scenes if you do not know the creator or trust the s
 
 ## Notes
 - When an event fires it is marked as executed and will not fire again during the loop, unless Timeline is reset with its "Stop" button.
-- The changes within the engine that are caused by each event are permanent until you load a new scene or restart studio entirely. If you want for these effects to be reset, you will need to insert an event at the start of the loop that does this manually.
-- Event keyframes can not be copied, cut or pasted. This applies to all selected keyframes if at least one of those is an event keyframe.
+- The changes that are caused by each event are permanent until you load a new scene or restart studio entirely. If you want for these effects to be reset in the loop, you will need to insert an event at the start of the loop that does this manually.
 
 ## Known quirks
 - Disabling the "Events" interpolable with the checkbox next to the name does not actually disable the events. If you want to disable the interpolable, use the "Disable" and "Enable" options from the right-click menu of the interpolable.
+- Event keyframes can not be copied, cut or pasted. This applies to all selected keyframes if at least one of those is an event keyframe.
 
 ## Installation
 Extract the contents of the RSkoi\_TimelineEvents\_<version>.zip archive into your main Koikatsu folder so that the RSkoi_TimelineEvents.dll file goes into the BepInEx/plugins folder.
