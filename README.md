@@ -3,6 +3,10 @@ Plugin that extends the Timeline plugin with scriptable events, similar to event
 
 As the plugin feeds each script to the RuntimeUnityEditor as code which is then executed, notice that certain limitations apply. When writing a script, always first debug it with the REPL console from the RuntimeUnityEditor.
 
+## DISCLAIMER ABOUT ARBITRARY CODE EXECUTION
+TimelineEvents allows for arbitrary code execution on scene load inside the Koikatsu studio. Arbitrary code execution can be used by bad faith actors to gain access to the player's PC and private data. When loading a scene, an overlay will pop up, blocking execution of the scripts within the scene by default and prompting the player to review the scripts, or discard them.
+Do **NOT** run scripts from scenes if you do not know the creator or trust the source. The maker of this plugin holds no responsibility for damages that result from its use.
+
 ## Dependencies
 - latest BepInEx
 - latest KKAPI

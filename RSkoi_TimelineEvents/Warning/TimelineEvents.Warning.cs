@@ -28,12 +28,10 @@ namespace RSkoi_TimelineEvents
 
         internal static void LoadWarningResource()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Stream stream = assembly.GetManifestResourceStream("RSkoi_TimelineEvents.Resources.timelineevents.unity3d");
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("RSkoi_TimelineEvents.Resources.timelineevents.unity3d");
             byte[] buffer = new byte[stream.Length];
             stream.Read(buffer, 0, buffer.Length);
-            AssetBundle _assetBundle = AssetBundle.LoadFromMemory(buffer);
-            _warningPrefab = _assetBundle.LoadAsset<GameObject>("TimelineEventsWarningCanvas");
+            _warningPrefab = AssetBundle.LoadFromMemory(buffer).LoadAsset<GameObject>("TimelineEventsWarningCanvas");
             stream.Close();
         }
 

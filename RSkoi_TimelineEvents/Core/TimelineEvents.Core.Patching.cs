@@ -132,7 +132,7 @@ namespace RSkoi_TimelineEvents
             {
                 TimelineEventsUI.loadFromFileButton.gameObject.SetActive(true);
                 string eventValue = ((TimelineEventType)selected[0].Value.value).EventValue;
-                logger.LogMessage($"TimelineEvent Value: {eventValue}");
+                logger.LogMessage($"TimelineEvent Value:\n{eventValue}");
             }
         }
 
