@@ -27,4 +27,4 @@ Do **NOT** run scripts from scenes if you do not know the creator or trust the s
 - Event keyframes can not be copied, cut or pasted. This applies to all selected keyframes if at least one of those is an event keyframe.
 
 ## Installation
-Extract the contents of the RSkoi\_TimelineEvents\_<version>.zip archive into your main Koikatsu folder so that the RSkoi_TimelineEvents.dll file goes into the BepInEx/plugins folder.
+Extract the contents of the RSkoi\_TimelineEvents\_\<version\>.zip archive into your main Koikatsu folder so that the RSkoi_TimelineEvents.dll file goes into the BepInEx/plugins folder.
