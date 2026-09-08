@@ -100,7 +100,7 @@ namespace RSkoi_TimelineEvents
             return true;
         }
 
-        [HarmonyPatch(typeof(Timeline.Timeline), "MoveKeyframe")]
+        [HarmonyPatch(typeof(Timeline.Timeline), "TryMoveKeyframe")]
         [HarmonyPrefix]
         private static void MoveKeyframePrefix(bool __runOriginal, Keyframe keyframe, float destinationTime)
         {
